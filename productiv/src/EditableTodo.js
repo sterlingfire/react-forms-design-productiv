@@ -23,37 +23,46 @@ function EditableTodo({ todo, update, remove }) {
 
   /** Call remove fn passed to this. */
   function handleDelete() {
-    remove();
+    remove(todo.id);
   }
 
   /** Edit form saved; toggle isEditing and update in ancestor. */
-  function handleSave(formData) { }
+  function handleSave(formData) {
+    toggleEdit();
+    const updatedTodo = { ...todo };
+    formData.keys().forEach(k => updatedTodo[k] = formData[k]);
+    update(updatedTodo);
+  }
+
+  const { description, title, priority } = todo;
+  const initialFormData = { description, title, priority };
+
+  let todoForm = (
+    <TodoForm
+      handleSave={handleSave}
+      initialFormData={initialFormData}
+    />);
+
+  let editTodo = (
+    <div className="mb-3">
+      <div className="float-right text-sm-right">
+        <button
+          className="EditableTodo-toggle btn-link btn btn-sm"
+          onClick={toggleEdit}>
+          Edit
+              </button>
+        <button
+          className="EditableTodo-delBtn btn-link btn btn-sm text-danger"
+          onClick={handleDelete}>
+          Del
+              </button>
+      </div>
+      <Todo todo={todo}/>
+    </div>);
 
   return (
     <div className="EditableTodo">
-
-      EITHER
-
-      <TodoForm />
-
-                OR
-
-      <div className="mb-3">
-        <div className="float-right text-sm-right">
-          <button
-            className="EditableTodo-toggle btn-link btn btn-sm"
-            onClick={toggleEdit}>
-            Edit
-                    </button>
-          <button
-            className="EditableTodo-delBtn btn-link btn btn-sm text-danger"
-            onClick={handleDelete}>
-            Del
-                    </button>
-        </div>
-        <Todo />
-      </div>
-
+      {(isEditing) ? todoForm : editTodo}
     </div>
   );
 }

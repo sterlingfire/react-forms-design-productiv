@@ -12,6 +12,7 @@ import TodoForm from "./TodoForm";
  *
  * State:
  * - todos: array of [ todo, ... ]
+ *    where todo = { id, title, description, priority }
  *
  * App -> TodoApp -> { TodoForm, EditableTodoList }
  */
@@ -22,6 +23,8 @@ function TodoApp({initalTodos}) {
 
   /** add a new todo to list */
   function create(newTodo) {
+    let newTodoCopy = {...newTodo, id: uuid() };
+    setTodos(todos => [...todos, newTodoCopy].map(todo => ({...todo})));
   }
 
   /** update a todo with updatedTodo */
