@@ -30,7 +30,7 @@ function EditableTodo({ todo, update, remove }) {
   function handleSave(formData) {
     toggleEdit();
     const updatedTodo = { ...todo };
-    formData.keys().forEach(k => updatedTodo[k] = formData[k]);
+    Object.keys(formData).forEach(k => updatedTodo[k] = formData[k]);
     update(updatedTodo);
   }
 

@@ -15,9 +15,9 @@ function EditableTodoList({todos, update, remove}) {
 
   /* Helper function to render each EditableTodo */
   function render(){
-    return todos.map(todo => {
-    <EditableTodo key={todo.id} todo={todo} update={update} remove={remove} />
-    });
+    return todos.map(todo => (
+    <EditableTodo key={todo.id} todo={todo} update={update} remove={remove} />)
+    );
   }
   return <div>{render()}</div>;
 }

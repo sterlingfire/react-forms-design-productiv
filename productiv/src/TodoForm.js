@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 /** Form for adding.
  * State:
  * - formData
@@ -11,21 +10,19 @@ import React, { useState } from "react";
  * { TodoApp, EditableTodo } -> TodoForm
  */
 
-function TodoForm({
-  initialFormData = {title="", description="", priority=1}, 
-  handleSave}) {
+function TodoForm({initialFormData, handleSave}) {
   const [formData, setFormData] = useState(initialFormData);
-
-  /** Update form input. 
+  console.log("FORMS::::",formData, initialFormData);
+  /** Update form input.
    * Call setFormData with new value changed.
   */
-  function handleChange(evt) { 
+  function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData( formData => ({...formData, [name]: value}));
   }
 
   /** Call parent function and clear form. */
-  function handleSubmit(evt) { 
+  function handleSubmit(evt) {
     evt.preventDefault();
     handleSave(formData);
     setFormData(initialFormData);
@@ -41,7 +38,7 @@ function TodoForm({
               className="form-control"
               placeholder="Title"
               onChange={handleChange}
-              value="FIXME"
+              value={formData.title}
               aria-label="Title"
           />
         </div>
@@ -53,7 +50,7 @@ function TodoForm({
               className="form-control"
               placeholder="Description"
               onChange={handleChange}
-              value="FIXME"
+              value={formData.description}
               aria-label="Description"
           />
         </div>
@@ -65,7 +62,7 @@ function TodoForm({
             </label>
             <select id="newTodo-priority"
                     name="priority"
-                    value="FIXME"
+                    value={formData.priority}
                     onChange={handleChange}
                     className="form-control form-control-sm d-inline-flex"
             >
@@ -82,5 +79,5 @@ function TodoForm({
       </form>
   );
 }
-
+TodoForm.defaultProps = {initialFormData:{title:"", description:"", priority:1}};
 export default TodoForm;
