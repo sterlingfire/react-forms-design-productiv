@@ -29,8 +29,8 @@ function EditableTodo({ todo, update, remove }) {
   /** Edit form saved; toggle isEditing and update in ancestor. */
   function handleSave(formData) {
     toggleEdit();
-    const updatedTodo = { ...todo };
-    Object.keys(formData).forEach(k => updatedTodo[k] = formData[k]);
+    // TODO: go back to lecture notes of updating todo. (known idiom). 
+    const updatedTodo = { ...todo, ...formData };
     update(updatedTodo);
   }
 
