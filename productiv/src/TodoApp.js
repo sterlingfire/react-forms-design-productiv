@@ -21,18 +21,21 @@ function TodoApp({ initialTodos }) {
 
   const [todos, setTodos] = useState(initialTodos);
 
-  /** add a new todo to list */
+  /** Called by TodoForm as handleSave
+   *  adds a new todo to list */
   function create(newTodo) {
     let newTodoCopy = { ...newTodo, id: uuid() };
     setTodos(todos => [...todos, newTodoCopy].map(todo => ({ ...todo })));
   }
 
-  /** update a todo with updatedTodo */
+  /** Called by EditableTodo in handleSave
+   * update a todo with updatedTodo */
   function update(updatedTodo) {
     setTodos( todos => todos.map(todo => (todo.id === updatedTodo.id) ? updatedTodo : todo));
   }
 
-  /** delete a todo by id */
+  /** Called by EditableTodo in handleDelete
+   * delete a todo by id */
   function remove(id) {
     setTodos(todos => todos.filter(todo => todo.id !== id).map(todo => ({ ...todo })));
   }
